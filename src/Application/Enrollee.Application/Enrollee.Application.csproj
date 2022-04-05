@@ -5,16 +5,11 @@
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <RootNamespace>Enrollee.Application</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\Enrollee.Application\Enrollee.Application.csproj" />
     <ProjectReference Include="..\..\Domain\Enrollee.Domain\Enrollee.Domain.csproj" />
-    <ProjectReference Include="..\Enrollee.Infrastructure\Enrollee.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.3" />
   </ItemGroup>
 
 </Project>
