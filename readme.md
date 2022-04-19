@@ -1,0 +1,1 @@
+![Схема проекта](./documentation/rdm.png)
