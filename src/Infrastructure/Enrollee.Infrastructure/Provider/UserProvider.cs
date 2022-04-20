@@ -24,7 +24,7 @@ internal class UserProvider : IUserProvider
             .ConfigureAwait(false);
     }
 
-    public async Task<User?> FindAsyncUser(string login, string password, CancellationToken cancellationToken)
+    public async Task<User?> FindAsync(string login, string password, CancellationToken cancellationToken)
     {
         return await _dbContext.Set<User>()
             .AsNoTracking()

@@ -17,11 +17,11 @@ internal sealed class LoginService : ILoginService
         _userProvider = userProvider;
     }
 
-    public async Task<Tokens> HandleAsync(LoginCommand command, CancellationToken cancellationToken)
+    public async Task<Guid> HandleAsync(RegistrationCommand command, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        if (await _userProvider.FindAsyncUser(command.Login, command.Password, cancellationToken).ConfigureAwait(false) is not null)
+        if (await _userProvider.FindAsync(command.Login, command.Password, cancellationToken).ConfigureAwait(false) is not null)
         {
             throw new Exception("Введён неправильно логин/пароль");
         }

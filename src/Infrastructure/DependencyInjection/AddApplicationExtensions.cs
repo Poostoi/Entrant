@@ -8,6 +8,7 @@ public static partial class ServiceCollectionExtensions
     public static IServiceCollection AddApplication(this IServiceCollection service)
     {
         service.AddScoped<IRegistrationService, RegistrationService>();
+        service.AddScoped<ILoginService, LoginService>();
         return service;
     }
 }

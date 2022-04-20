@@ -32,11 +32,11 @@ public class UserController : ApiBaseController
     }
 
     [HttpGet("Login")]
-    public async Task<IActionResult> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> Login([FromBody] RegistrationCommand command, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        var usrId = await _registrationService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        var usrId = await _loginService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
         return Ok(new { UserId = usrId});
     }
 
