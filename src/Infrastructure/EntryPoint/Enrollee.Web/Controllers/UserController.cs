@@ -8,11 +8,18 @@ public class UserController : ApiBaseController
 {
     private readonly IRegistrationService _registrationService;
 
-    public UserController(IRegistrationService registrationService)
+    private readonly ILoginService _loginService;
+
+    public UserController(IRegistrationService registrationService, ILoginService loginService)
     {
         ArgumentNullException.ThrowIfNull(registrationService);
+        
+        ArgumentNullException.ThrowIfNull(loginService);
 
         _registrationService = registrationService;
+
+        _loginService = loginService;
+
     }
 
     [HttpPost("Registration")]
@@ -23,4 +30,14 @@ public class UserController : ApiBaseController
         var usrId = await _registrationService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
         return Ok(new { UserId = usrId});
     }
+
+    [HttpGet("Login")]
+    public async Task<IActionResult> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(command);
+
+        var usrId = await _registrationService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        return Ok(new { UserId = usrId});
+    }
+
 }
