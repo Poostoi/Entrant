@@ -1,9 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using BCrypt.Net;
 using Enrollee.Application.Services.User;
 using Enrollee.Domain.Models;
 using Enrollee.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Enrollee.Infrastructure.Provider;
 
@@ -28,7 +30,12 @@ internal class UserProvider : IUserProvider
     {
         return await _dbContext.Set<User>()
             .AsNoTracking()
-            .SingleOrDefaultAsync(user =>(user.Login == login)&&(user.Password == password), cancellationToken)
+            .SingleOrDefaultAsync(user => (user.Login == login) && 
+                                          BCrypt.Net.BCrypt.Verify(password,
+                                              user.PasswordHash,
+                                              false,
+                                              HashType.None),
+                cancellationToken)
             .ConfigureAwait(false);
     }
 

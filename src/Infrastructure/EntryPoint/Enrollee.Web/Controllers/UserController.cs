@@ -31,13 +31,13 @@ public class UserController : ApiBaseController
         return Ok(new { UserId = usrId});
     }
 
-    [HttpGet("Login")]
+    [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] RegistrationCommand command, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        var usrId = await _loginService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
-        return Ok(new { UserId = usrId});
+        var token = await _loginService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        return Ok(token);
     }
 
 }

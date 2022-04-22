@@ -14,6 +14,8 @@ public static partial class ServiceCollectionExtensions
             builder => builder.UseInMemoryDatabase("EnrolleeDb"));
         service.AddSingleton<EntityProvider>();
         service.AddScoped<IUserProvider, UserProvider>();
+        
+        
 
         return service;
     }

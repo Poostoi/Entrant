@@ -22,10 +22,10 @@ internal sealed class RegistrationService : IRegistrationService
 
         if (await _userProvider.FindAsync(command.Login, cancellationToken).ConfigureAwait(false) is not null)
         {
-            throw new Exception("Этот логин уже занят");
+            throw new ArgumentException("Этот логин уже занят");
         }
 
-        var user = new Domain.Models.User(command.Login, command.Password);
+        var user = new Domain.Models.User(command.Login, BCrypt.Net.BCrypt.HashPassword(command.Password));
 
         await _userProvider.AddAsync(user, cancellationToken).ConfigureAwait(false);
 

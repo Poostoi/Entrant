@@ -8,5 +8,5 @@ namespace Enrollee.Application.Services.User;
 
 public interface ILoginService
 {
-    Task<Guid> HandleAsync(RegistrationCommand command, CancellationToken cancellationToken);
+    Task<Tokens> HandleAsync(RegistrationCommand command, CancellationToken cancellationToken);
 }
