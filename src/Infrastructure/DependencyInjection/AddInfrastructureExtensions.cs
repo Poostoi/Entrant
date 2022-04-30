@@ -13,7 +13,7 @@ public static partial class ServiceCollectionExtensions
         service.AddDbContext<ServerDbContext>(
             builder => builder.UseInMemoryDatabase("EnrolleeDb"));
         service.AddSingleton<EntityProvider>();
-        service.AddScoped<IUserProvider, UserProvider>();
+        service.AddScoped<IAccountProvider, AccountProvider>();
         
         
 

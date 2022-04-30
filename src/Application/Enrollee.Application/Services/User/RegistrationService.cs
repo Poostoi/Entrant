@@ -2,33 +2,36 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Enrollee.Application.Entities.User;
+using Enrollee.Domain.Models;
+using Enrollee.Application.Setting;
 
 namespace Enrollee.Application.Services.User;
 
 internal sealed class RegistrationService : IRegistrationService
 {
-    private readonly IUserProvider _userProvider;
-
-    public RegistrationService(IUserProvider userProvider)
+    private readonly IAccountProvider _accountProvider;
+    private readonly  ITokenProvider _tokenProvider;
+    public RegistrationService(IAccountProvider accountProvider, ITokenProvider tokenProvider)
     {
-        ArgumentNullException.ThrowIfNull(userProvider);
+        ArgumentNullException.ThrowIfNull(accountProvider);
 
-        _userProvider = userProvider;
+        _accountProvider = accountProvider;
+        _tokenProvider = tokenProvider;
     }
 
-    public async Task<Guid> HandleAsync(RegistrationCommand command, CancellationToken cancellationToken)
+    public async Task<Token> HandleAsync(RegistrationCommand command, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        if (await _userProvider.FindAsync(command.Login, cancellationToken).ConfigureAwait(false) is not null)
+        if (await _accountProvider.FindAsync(command.Login, cancellationToken).ConfigureAwait(false) is not null)
         {
             throw new ArgumentException("Этот логин уже занят");
         }
 
-        var user = new Domain.Models.User(command.Login, BCrypt.Net.BCrypt.HashPassword(command.Password));
+        var account = new Account(command.Login, command.Password);
 
-        await _userProvider.AddAsync(user, cancellationToken).ConfigureAwait(false);
-
-        return user.Id;
+        await _accountProvider.AddAsync(account, cancellationToken).ConfigureAwait(false);
+        
+        return  _tokenProvider.CreateToken(account);
     }
 }

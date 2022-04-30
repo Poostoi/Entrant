@@ -1,12 +1,11 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Enrollee.Application.Entities.User;
-using Enrollee.Domain.Models;
+using Enrollee.Application.Setting;
 
 namespace Enrollee.Application.Services.User;
 
 public interface ILoginService
 {
-    Task<Tokens> HandleAsync(RegistrationCommand command, CancellationToken cancellationToken);
+    Task<Token> HandleAsync(LoginCommand command, CancellationToken cancellationToken);
 }

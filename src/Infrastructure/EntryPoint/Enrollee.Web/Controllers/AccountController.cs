@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Enrollee.Web.Controllers;
 
-public class UserController : ApiBaseController
+public class AccountController : ApiBaseController
 {
     private readonly IRegistrationService _registrationService;
 
     private readonly ILoginService _loginService;
 
-    public UserController(IRegistrationService registrationService, ILoginService loginService)
+    public AccountController(IRegistrationService registrationService, ILoginService loginService)
     {
         ArgumentNullException.ThrowIfNull(registrationService);
         
@@ -32,7 +32,7 @@ public class UserController : ApiBaseController
     }
 
     [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] RegistrationCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> Login([FromBody] LoginCommand command, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
 
