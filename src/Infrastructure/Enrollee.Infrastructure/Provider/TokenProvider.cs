@@ -4,7 +4,8 @@ using System.Text;
 using Enrollee.Application.Services.User;
 using Enrollee.Domain.Models;
 using Microsoft.IdentityModel.Tokens;
-using Enrollee.Application.Setting;
+using Enrollee.Application;
+using Enrollee.Infrastructure.Setting;
 using System;
 
 
@@ -12,11 +13,6 @@ namespace Enrollee.Infrastructure.Provider;
 
 public class TokenProvider: ITokenProvider
 {
-    public TokenProvider()
-    {
-        
-    }
-
     public  Token CreateToken(Account account)
     {
         ArgumentNullException.ThrowIfNull(account);
@@ -26,7 +22,7 @@ public class TokenProvider: ITokenProvider
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.NameIdentifier, account.Login)                    
+                new Claim(ClaimTypes.Sid, Convert.ToString(account.Id))                    
             }),
             Expires = null,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey),SecurityAlgorithms.HmacSha256Signature)

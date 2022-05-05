@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Enrollee.Application.Setting;
+using Enrollee.Infrastructure.Setting;
 
 
 namespace DependencyInjection;
@@ -11,6 +11,8 @@ public static partial class ServiceCollectionExtensions
 {
     public static IServiceCollection AddAuthorizationModule(this IServiceCollection service)
     {
+        
+        
         service.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -25,7 +27,7 @@ public static partial class ServiceCollectionExtensions
                     ValidateIssuerSigningKey = true,
                 };
             });
-        service.AddAuthorizationModule();
+        service.AddAuthorization();
         return service;
     }
 }

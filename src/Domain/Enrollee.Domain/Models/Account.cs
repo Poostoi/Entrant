@@ -12,22 +12,27 @@ public class Account : IEntity
 
         Id = Guid.NewGuid();
         Login = login;
-        PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
+        Salt = BCrypt.Net.BCrypt.GenerateSalt();
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword((Salt + password));
     }
 
     protected Account()
     {
-        
+        Login = null!;
+        PasswordHash = null!;
+        Salt = null!;
     }
+
     public Guid Id { get; private init; }
-    
+
     public string Login { get; private init; }
+
+    public string Salt { get; private init; }
 
     public string PasswordHash { get; private init; }
 
     public bool Verify(string password)
     {
-        return BCrypt.Net.BCrypt.Verify(password, PasswordHash, false, HashType.None);
+        return BCrypt.Net.BCrypt.Verify((Salt + password), PasswordHash);
     }
-    
 }

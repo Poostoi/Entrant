@@ -1,4 +1,4 @@
-﻿namespace Enrollee.Application.Setting;
+﻿namespace Enrollee.Application;
 
 public class Token
 {

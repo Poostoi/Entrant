@@ -2,14 +2,15 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Enrollee.Application.Entities.User;
-using Enrollee.Application.Setting;
+using Enrollee.Application;
 
 namespace Enrollee.Application.Services.User;
 
 internal sealed class LoginService : ILoginService
 {
     private readonly IAccountProvider _accountProvider;
-    private readonly  ITokenProvider _tokenProvider;
+    private readonly ITokenProvider _tokenProvider;
+
     public LoginService(IAccountProvider accountProvider, ITokenProvider tokenProvider)
     {
         ArgumentNullException.ThrowIfNull(accountProvider);
@@ -20,14 +21,14 @@ internal sealed class LoginService : ILoginService
 
     public async Task<Token> HandleAsync(LoginCommand command, CancellationToken cancellationToken)
     {
-        
         ArgumentNullException.ThrowIfNull(command);
         var account = await _accountProvider.FindAsync(command.Login, cancellationToken).ConfigureAwait(false);
-        ArgumentNullException.ThrowIfNull(account);
-        if ( account.Verify(command.Password))
+
+        if (account is null || !account.Verify(command.Password))
         {
-            throw new ArgumentException("Неверный пароль");
+            throw new ArgumentException($"Неверный логин или пароль");
         }
-        return  _tokenProvider.CreateToken(account);
+
+        return _tokenProvider.CreateToken(account);
     }
 }
