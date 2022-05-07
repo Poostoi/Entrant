@@ -27,8 +27,8 @@ public class AccountController : ApiBaseController
     {
         ArgumentNullException.ThrowIfNull(command);
 
-        var usrId = await _registrationService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
-        return Ok(new { UserId = usrId});
+        var token = await _registrationService.HandleAsync(command, cancellationToken).ConfigureAwait(false);
+        return Ok(token);
     }
 
     [HttpPost("Login")]
