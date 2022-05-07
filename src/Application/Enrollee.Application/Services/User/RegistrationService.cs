@@ -28,7 +28,7 @@ internal sealed class RegistrationService : IRegistrationService
             throw new ArgumentException("Этот логин уже занят");
         }
 
-        var account = new Account(command.Login, command.Password);
+        var account = new Account(command.Login, command.Password, command.Role);
 
         await _accountProvider.AddAsync(account, cancellationToken).ConfigureAwait(false);
         

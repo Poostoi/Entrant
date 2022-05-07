@@ -10,6 +10,7 @@ public static partial class ServiceCollectionExtensions
     {
         service.AddScoped<IRegistrationService, RegistrationService>();
         service.AddScoped<ILoginService, LoginService>();
+        service.AddScoped<IAddRoleService, AddRoleService>();
         return service;
     }
 }

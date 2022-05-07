@@ -5,13 +5,14 @@ namespace Enrollee.Domain.Models;
 
 public class Account : IEntity
 {
-    public Account(string login, string password)
+    public Account(string login, string password, Role role)
     {
         ArgumentNullException.ThrowIfNull(password);
         ArgumentNullException.ThrowIfNull(login);
 
         Id = Guid.NewGuid();
         Login = login;
+        Role = role;
         Salt = BCrypt.Net.BCrypt.GenerateSalt();
         PasswordHash = BCrypt.Net.BCrypt.HashPassword((Salt + password));
     }
@@ -21,15 +22,19 @@ public class Account : IEntity
         Login = null!;
         PasswordHash = null!;
         Salt = null!;
+        Role = null!;
     }
 
     public Guid Id { get; private init; }
 
     public string Login { get; private init; }
+    
+    private Role Role { get; set; }
 
-    public string Salt { get; private init; }
+    private string Salt { get; init; }
 
-    public string PasswordHash { get; private init; }
+    private string PasswordHash { get; init; }
+
 
     public bool Verify(string password)
     {
