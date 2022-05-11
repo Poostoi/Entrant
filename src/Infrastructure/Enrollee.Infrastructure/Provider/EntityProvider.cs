@@ -14,7 +14,7 @@ internal sealed class EntityProvider
         var domainAssembly = typeof(IEntity).Assembly;
 
         _modelTypes = domainAssembly.GetExportedTypes()
-            .Where(x => !x.IsInterface && x.GetInterface(nameof(IEntity)) is not null)
+            .Where(x => !x.IsAbstract && !x.IsInterface && x.GetInterface(nameof(IEntity)) is not null)
             .ToArray();
     }
 
