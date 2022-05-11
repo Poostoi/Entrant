@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Enrollee.Application.Entities.User;
 using Enrollee.Domain.Models;
-using Enrollee.Application;
 
 namespace Enrollee.Application.Services.User;
 
@@ -28,7 +27,7 @@ internal sealed class RegistrationService : IRegistrationService
             throw new ArgumentException("Этот логин уже занят");
         }
 
-        var account = new Account(command.Login, command.Password, command.Role);
+        var account = new Account(command.Login, command.Password);
 
         await _accountProvider.AddAsync(account, cancellationToken).ConfigureAwait(false);
         
