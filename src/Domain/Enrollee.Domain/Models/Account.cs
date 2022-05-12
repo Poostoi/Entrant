@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using BCrypt.Net;
 
 namespace Enrollee.Domain.Models;
 
 public class Account : BaseModel
 {
-    public Account(string login, string password):base()
+    public Account(string login, string password)
     {
         ArgumentNullException.ThrowIfNull(password);
         ArgumentNullException.ThrowIfNull(login);
@@ -13,6 +14,7 @@ public class Account : BaseModel
         Login = login;
         Salt = BCrypt.Net.BCrypt.GenerateSalt();
         PasswordHash = BCrypt.Net.BCrypt.HashPassword((Salt + password));
+        Roles = Array.Empty<Role>();
     }
 
     protected Account()
@@ -20,20 +22,18 @@ public class Account : BaseModel
         Login = null!;
         PasswordHash = null!;
         Salt = null!;
-        Role = null!;
+        Roles = new List<Role>();
     }
 
     public string Login { get; private init; }
 
-    public Role? Role { get; set; }
+    public string Salt { get; private init; }
+    
+    public string PasswordHash { get; private init; }
 
-    public string Salt { get; init; }
+    public IReadOnlyCollection<Role> Roles { get; private set; }
 
-    public string PasswordHash { get; init; }
-
-
-
-    public bool Verify(string password)
+    public bool Verify(string password) //добавить проверку на наличие ролей
     {
         return BCrypt.Net.BCrypt.Verify((Salt + password), PasswordHash);
     }

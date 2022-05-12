@@ -2,18 +2,13 @@ using System;
 
 namespace Enrollee.Domain.Models;
 
-public class Role: IEntity
+public class Role: BaseModel
 {
-    public Role(string name)
+    protected Role()
     {
-        Id = Guid.NewGuid();
-        Name = name;
-        CreatedDate = DateOnly.FromDateTime(DateTime.Now);
-        UpdatedDate = DateOnly.FromDateTime(DateTime.Now);
+        Name = null!;
     }
-    public Guid Id { get; private init; }
     public string Name { get; private init; }
-    public DateOnly CreatedDate { get; private init; }
-    public DateOnly UpdatedDate { get; init; }
+    
 
 }

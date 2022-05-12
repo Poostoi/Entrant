@@ -7,10 +7,10 @@ public abstract class BaseModel:IEntity
     protected BaseModel()
     {
         Id = Guid.NewGuid();
-        CreatedDate = DateOnly.FromDateTime(DateTime.Now);
-        UpdatedDate = DateOnly.FromDateTime(DateTime.Now);
+        CreatedDate =DateTime.UtcNow;
+        UpdatedDate = DateTime.UtcNow;
     }
-    public Guid Id { get; }
-    public  DateOnly CreatedDate { get; }
-    public  DateOnly UpdatedDate { get; }
+    public Guid Id { get;private init; }
+    public  DateTime CreatedDate { get; private init; }
+    public  DateTime UpdatedDate { get; private init;}
 }

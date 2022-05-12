@@ -1,4 +1,5 @@
 using System;
+using Enrollee.Domain.Models;
 using Enrollee.Infrastructure.Provider;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,10 +20,18 @@ internal class ServerDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<BaseModel>().HasKey(x => x.Id);
 
         foreach (var model in _entityProvider.GetModels())
         {
-            modelBuilder.Entity(model);
+            var entityTypeBuilder = modelBuilder.Entity(model);
         }
+        
+        modelBuilder.Entity<Account>().HasBaseType<BaseModel>();
+        modelBuilder.Entity<Account>()
+            .HasMany(a => a.Roles)
+            .WithMany(t => null!)
+            .UsingEntity(acR => acR.ToTable("AccountRole"));
+        
     }
 }
