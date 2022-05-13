@@ -25,13 +25,18 @@ internal class ServerDbContext : DbContext
         foreach (var model in _entityProvider.GetModels())
         {
             var entityTypeBuilder = modelBuilder.Entity(model);
+            if (model.BaseType == typeof(BaseModel))
+            {
+                entityTypeBuilder.HasBaseType(typeof(BaseModel));
+            }
         }
         
-        modelBuilder.Entity<Account>().HasBaseType<BaseModel>();
+        /*modelBuilder.Entity<Account>().HasBaseType<BaseModel>();
         modelBuilder.Entity<Account>()
             .HasMany(a => a.Roles)
             .WithMany(t => null!)
-            .UsingEntity(acR => acR.ToTable("AccountRole"));
+            .UsingEntity(acR => acR.ToTable("AccountRole"));*/
+            
         
     }
 }
