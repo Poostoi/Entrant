@@ -13,6 +13,12 @@ public static partial class ServiceCollectionExtensions
         service.AddDbContext<ServerDbContext>(
             builder => builder.UseInMemoryDatabase("EnrolleeDb"));
         service.AddSingleton<EntityProvider>();
+        service.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }));
         service.AddScoped<IAccountProvider, AccountProvider>();
         service.AddScoped<IRoleProvider, RoleProvider>();
         service.AddScoped<ITokenProvider, TokenProvider>();
