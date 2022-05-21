@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Configuration;
 using System.Text;
-using Enrollee.Infrastructure.Provider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Enrollee.Infrastructure.Setting;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-
 
 namespace DependencyInjection;
 
@@ -17,12 +13,31 @@ public static partial class ServiceCollectionExtensions
     public static IServiceCollection AddAuthorizationModule(this IServiceCollection service, IConfiguration config)
     {
         ArgumentNullException.ThrowIfNull(config);
-        
-        service.AddSingleton<IAuthOptions, AuthOptions>();
-        service.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
+        var authOptions = config.GetSection(nameof(AuthOptions))
+            .Get<AuthOptions>(options => options.BindNonPublicProperties = true);
+        service.AddSingleton(authOptions);
+        service.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters = new TokenProvider(new AuthOptions(config)).CreateTokenValidationParameters();
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    //todo: FIX!!!!!!!!!!!!!!!!
+                    ValidateIssuer = false,
+                    ValidIssuer = authOptions.Issuer,
+                    ValidateAudience = false,
+                    ValidAudience = authOptions.Audience,
+                    ValidateLifetime = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.Key)),
+                    ValidateIssuerSigningKey = true,
+                    RequireExpirationTime = false,
+                    // ClockSkew = TimeSpan.FromDays(1),
+                };
             });
         service.AddAuthorization();
         return service;

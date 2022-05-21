@@ -1,5 +1,6 @@
 ﻿using Enrollee.Application.Entities.User;
 using Enrollee.Application.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Enrollee.Web.Controllers;
@@ -40,4 +41,10 @@ public class AccountController : ApiBaseController
         return Ok(token);
     }
 
+    [HttpGet]
+    [Authorize]
+    public IActionResult Check()
+    {
+        return Ok();
+    }
 }
