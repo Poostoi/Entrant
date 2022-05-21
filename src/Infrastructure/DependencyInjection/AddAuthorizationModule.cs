@@ -14,10 +14,13 @@ public static partial class ServiceCollectionExtensions
     {
         ArgumentNullException.ThrowIfNull(config);
 
-        var authOptions = config.GetSection(nameof(AuthOptions))
+        var authOptions = config
+            .GetSection(nameof(AuthOptions))
             .Get<AuthOptions>(options => options.BindNonPublicProperties = true);
+
         service.AddSingleton(authOptions);
-        service.AddAuthentication(options => {
+        service.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
