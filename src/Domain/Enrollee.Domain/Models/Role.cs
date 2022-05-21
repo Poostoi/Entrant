@@ -1,5 +1,3 @@
-using System;
-
 namespace Enrollee.Domain.Models;
 
 public class Role: BaseModel

@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using BCrypt.Net;
 using Enrollee.Application.Services.User;
 using Enrollee.Domain.Models;
 using Enrollee.Infrastructure.Contexts;

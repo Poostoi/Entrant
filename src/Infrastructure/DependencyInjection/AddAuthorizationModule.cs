@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Configuration;
-using System.Text;
 using Enrollee.Infrastructure.Provider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Enrollee.Infrastructure.Setting;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
 

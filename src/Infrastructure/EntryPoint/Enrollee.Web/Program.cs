@@ -1,5 +1,4 @@
 using DependencyInjection;
-using Enrollee.Infrastructure.Setting;
 
 var builder = WebApplication.CreateBuilder(args);
 
