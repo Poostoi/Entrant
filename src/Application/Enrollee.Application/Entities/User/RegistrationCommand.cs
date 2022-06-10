@@ -1,5 +1,4 @@
 ﻿using System;
-using Enrollee.Domain.Models;
 
 namespace Enrollee.Application.Entities.User;
 
