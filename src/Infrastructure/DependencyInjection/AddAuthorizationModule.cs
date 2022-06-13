@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Text;
-
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Enrollee.Infrastructure.Setting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DependencyInjection;
 
@@ -31,15 +30,14 @@ public static partial class ServiceCollectionExtensions
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    //todo: FIX!!!!!!!!!!!!!!!!
-                    ValidateIssuer = false,
+                    ValidateIssuer = authOptions.ValidateIssuer,
                     ValidIssuer = authOptions.Issuer,
-                    ValidateAudience = false,
+                    ValidateAudience = authOptions.ValidateAudience,
                     ValidAudience = authOptions.Audience,
-                    ValidateLifetime = false,
+                    ValidateLifetime = authOptions.ValidateLifetime,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.Key)),
-                    ValidateIssuerSigningKey = true,
-                    RequireExpirationTime = false,
+                    ValidateIssuerSigningKey = authOptions.ValidateIssuerSigningKey,
+                    RequireExpirationTime = authOptions.RequireExpirationTime,
                     // ClockSkew = TimeSpan.FromDays(1),
                 };
             });
