@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Enrollee.Domain.Models;
+namespace Enrollee.Domain.Models.User;
 
 public class Account : BaseModel
 {

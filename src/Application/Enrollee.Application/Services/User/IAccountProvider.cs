@@ -6,7 +6,7 @@ namespace Enrollee.Application.Services.User;
 public interface IAccountProvider
 {
     
-    Task<Domain.Models.Account?> FindAsync(string login, CancellationToken cancellationToken);
+    Task<Domain.Models.User.Account?> FindAsync(string login, CancellationToken cancellationToken);
 
-    Task AddAsync(Domain.Models.Account account, CancellationToken cancellationToken);
+    Task AddAsync(Domain.Models.User.Account account, CancellationToken cancellationToken);
 }

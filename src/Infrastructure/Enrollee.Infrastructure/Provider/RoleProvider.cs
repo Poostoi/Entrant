@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Enrollee.Application.Services.User;
-using Enrollee.Domain.Models;
+using Enrollee.Domain.Models.User;
 using Enrollee.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿namespace Enrollee.Domain.Models;
+﻿namespace Enrollee.Domain.Models.AboutOfEntrant;
 
 public class MaritalStatus: BaseModel
 {
