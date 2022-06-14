@@ -1,4 +1,6 @@
-﻿namespace Enrollee.Domain.Models;
+﻿using Enrollee.Domain.Models.AboutOfEntrant;
+
+namespace Enrollee.Domain.Models;
 
 public class EntrantAddress: BaseModel
 {
@@ -10,4 +12,5 @@ public class EntrantAddress: BaseModel
     public int? NumberApartament { get; private init; }
     public int? HomeTelethone { get; private init; }
     public Country Country { get; private init; }
+    public Entrant Entrant { get; private init; }
 }
