@@ -9,4 +9,6 @@ public class Entrant: BaseModel
     public Education Education { get; private init; }
     public DateTime DataOfBirth { get; set; }
     public int PlaceIdBirth { get; set; }
+    public int? VacancyId { get; private init; }
+    public Vacancy.Vacancy Vacancy { get; private init; }
 }
