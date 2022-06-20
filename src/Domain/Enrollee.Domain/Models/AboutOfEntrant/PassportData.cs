@@ -14,5 +14,6 @@ public class PassportData:BaseModel
     public bool ItIsGiven { get; private init; }
     public DateTime DateEnd { get; private init; }
     public DateTime DateModification { get; private set; }
+    
     public Entrant Entrant { get; private set; }
 }
