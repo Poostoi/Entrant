@@ -11,7 +11,7 @@ public static partial class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection service)
     {
         service.AddDbContext<ServerDbContext>(
-            builder => builder.UseInMemoryDatabase("EnrolleeDb"));
+            builder => builder.UseNpgsql("Host=localhost;Port=5432;Database=CoreDomain;Username=postgres;Password=37242"));
         service.AddSingleton<EntityProvider>();
         service.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
         {

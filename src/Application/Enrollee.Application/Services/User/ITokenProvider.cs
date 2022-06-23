@@ -1,4 +1,4 @@
-using Enrollee.Domain.Models;
+using Enrollee.Domain.Models.User;
 
 namespace Enrollee.Application.Services.User;
 

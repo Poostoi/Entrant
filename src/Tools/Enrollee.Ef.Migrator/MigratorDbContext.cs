@@ -24,6 +24,7 @@ internal sealed class MigratorDbContext : ServerDbContext
 
         optionsBuilder.UseLoggerFactory(_loggerFactory);
     }
+    
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

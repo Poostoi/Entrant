@@ -18,6 +18,10 @@ internal class DbContextFactory : IDesignTimeDbContextFactory<MigratorDbContext>
         _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
     }
 
+    public DbContextFactory()
+    {
+    }
+
     public MigratorDbContext CreateDbContext(string[] args)
     {
         var configurationBuilder = new ConfigurationBuilder()
@@ -29,7 +33,7 @@ internal class DbContextFactory : IDesignTimeDbContextFactory<MigratorDbContext>
         var configuration = configurationBuilder.Build();
 
         var dbContextOptions = new DbContextOptionsBuilder()
-            .UseNpgsql(configuration["DbConnection"], 
+            .UseNpgsql(configuration["DbConnection"],
                 o => o.MigrationsAssembly(GetType().Namespace)
                     .MigrationsHistoryTable(HistoryRepository.DefaultTableName, "service"))
             .Options;

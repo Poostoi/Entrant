@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Enrollee.Application.Services.User;
-using Enrollee.Domain.Models;
+using Enrollee.Domain.Models.User;
 using Microsoft.IdentityModel.Tokens;
 using Enrollee.Application;
 using Enrollee.Infrastructure.Setting;

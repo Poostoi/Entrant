@@ -1,4 +1,6 @@
 using System;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Enrollee.Infrastructure.Setting;
 
@@ -9,4 +11,9 @@ public class AuthOptions
     public string Audience { get; private init; }
 
     public string Key { get; private init; }
+    public bool ValidateIssuer { get; private init; }
+    public bool ValidateAudience { get; private init; }
+    public bool ValidateLifetime { get; private init; }
+    public bool ValidateIssuerSigningKey { get; private init; }
+    public bool RequireExpirationTime { get; private init; }
 }

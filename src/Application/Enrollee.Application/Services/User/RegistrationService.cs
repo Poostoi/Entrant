@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Enrollee.Application.Entities.User;
-using Enrollee.Domain.Models;
+using Enrollee.Domain.Models.User;
 
 namespace Enrollee.Application.Services.User;
 
