@@ -23,36 +23,18 @@ namespace Enrollee.Ef.Migrator.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "uuid-ossp");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Enrollee.Domain.Models.BaseModel", b =>
+            modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.Education", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaseModel");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseModel");
-                });
-
-            modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.Education", b =>
-                {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
-
                     b.Property<string>("CharacterEducation")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("PlaceIdEducation")
                         .HasColumnType("integer");
@@ -61,12 +43,22 @@ namespace Enrollee.Ef.Migrator.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("Education");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Educations", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.Entrant", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DataOfBirth")
                         .HasColumnType("timestamp with time zone");
@@ -86,8 +78,13 @@ namespace Enrollee.Ef.Migrator.Migrations
                     b.Property<int>("PlaceIdBirth")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid?>("VacancyId")
                         .HasColumnType("uuid");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("EducationId")
                         .IsUnique();
@@ -103,12 +100,14 @@ namespace Enrollee.Ef.Migrator.Migrations
 
                     b.HasIndex("VacancyId");
 
-                    b.HasDiscriminator().HasValue("Entrant");
+                    b.ToTable("Entrants", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.MaritalStatus", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<int?>("BrotherSister")
                         .HasColumnType("integer");
@@ -116,26 +115,49 @@ namespace Enrollee.Ef.Migrator.Migrations
                     b.Property<int?>("Children")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("Family")
                         .HasColumnType("integer");
 
-                    b.HasDiscriminator().HasValue("MaritalStatus");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MaritalStatus", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.Nationality", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NameNationality")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("Nationality");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Nationalities", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.PassportData", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("timestamp with time zone");
@@ -167,46 +189,74 @@ namespace Enrollee.Ef.Migrator.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("NationalityId");
 
-                    b.HasDiscriminator().HasValue("PassportData");
+                    b.ToTable("PassportData", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Country", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Country_Name");
+                        .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("Country");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Destrict", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Destrict_Name");
+                        .HasColumnType("text");
 
                     b.Property<Guid?>("RegionId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("RegionId");
 
-                    b.HasDiscriminator().HasValue("Destrict");
+                    b.ToTable("Districts", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.EntrantAddress", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CountryId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("Floor")
                         .HasColumnType("integer");
@@ -230,50 +280,77 @@ namespace Enrollee.Ef.Migrator.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("CountryId")
                         .IsUnique();
 
-                    b.HasDiscriminator().HasValue("EntrantAddress");
+                    b.ToTable("EntrantAddress", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Place", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("DestrictId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Place_Name");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("DestrictId");
 
-                    b.HasDiscriminator().HasValue("Place");
+                    b.ToTable("Places", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Region", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("CountryId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("Region_CountryId");
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Region_Name");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CountryId");
 
-                    b.HasDiscriminator().HasValue("Region");
+                    b.ToTable("Regions", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.User.Account", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -287,85 +364,128 @@ namespace Enrollee.Ef.Migrator.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("Account");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.User.Role", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("AccountId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Role_Name");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
-                    b.HasDiscriminator().HasValue("Role");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Vacancy.Faculty", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ExternalId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Faculty_Name");
+                        .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("Faculty");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Faculties", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Vacancy.Language", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("ExternalId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("Language_ExternalId");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Language_Name");
+                        .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("Language");
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Vacancy.Speciality", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("ExternalId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("Speciality_ExternalId");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("FacultyId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Speciality_Name");
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("FacultyId");
 
-                    b.HasDiscriminator().HasValue("Speciality");
+                    b.ToTable("Specialties", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.Vacancy.Vacancy", b =>
                 {
-                    b.HasBaseType("Enrollee.Domain.Models.BaseModel");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ExternalId")
-                        .HasColumnType("integer")
-                        .HasColumnName("Vacancy_ExternalId");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Forma")
                         .HasColumnType("integer");
@@ -376,15 +496,19 @@ namespace Enrollee.Ef.Migrator.Migrations
                     b.Property<Guid?>("SpecialityId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("VacancyId")
-                        .HasColumnType("integer")
-                        .HasColumnName("VacancyId1");
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
 
                     b.HasIndex("SpecialityId");
 
-                    b.HasDiscriminator().HasValue("Vacancy");
+                    b.ToTable("Vacancies", (string)null);
                 });
 
             modelBuilder.Entity("Enrollee.Domain.Models.AboutOfEntrant.Entrant", b =>

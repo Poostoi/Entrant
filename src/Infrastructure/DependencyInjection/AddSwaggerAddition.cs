@@ -36,8 +36,6 @@ public static partial class ServiceCollectionExtensions
                 }
             });
         });
-
-
         return service;
     }
 }

@@ -9,7 +9,7 @@ public class Destrict: BaseModel
     public Guid? RegionId { get; private init; }
     public Region Region { get; private init; }
     public ICollection<Place> Places { get; private set; }
-    public Destrict()
+    public Destrict():base()
     {
         Places = new List<Place>();
     }
